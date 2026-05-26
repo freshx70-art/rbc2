@@ -9,11 +9,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 let webhookUrl = '';
 
+// Endpoint to set the webhook URL
 app.post('/set-webhook', (req, res) => {
     webhookUrl = req.body.webhookId;
+    console.log('Webhook URL set:', webhookUrl);
     res.status(200).send('Webhook ID set');
 });
 
+// Endpoint to capture and send the PNG link
 app.post('/capture', (req, res) => {
     const { pngLink } = req.body;
     if (!webhookUrl) {
@@ -35,6 +38,7 @@ app.post('/capture', (req, res) => {
     });
 });
 
+// Start the server
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
