@@ -54,38 +54,44 @@
         document.getElementById('webhookForm').addEventListener('submit', async (event) => {
             event.preventDefault();
             const webhookId = document.getElementById('webhookId').value;
-            const response = await fetch('http://localhost:3001/set-webhook', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ webhookId })
-            });
-
-            if (response.ok) {
-                alert('Webhook ID set!');
-                document.getElementById('webhookForm').style.display = 'none';
-                document.getElementById('captureForm').style.display = 'block';
-            } else {
-                alert('Failed to set webhook ID.');
+            try {
+                const response = await fetch('http://localhost:3001/set-webhook', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ webhookId })
+                });
+                if (response.ok) {
+                    alert('Webhook ID set!');
+                    document.getElementById('webhookForm').style.display = 'none';
+                    document.getElementById('captureForm').style.display = 'block';
+                } else {
+                    throw new Error('Failed to set webhook ID.');
+                }
+            } catch (error) {
+                alert('Failed to set webhook ID: ' + error.message);
             }
         });
 
         document.getElementById('captureForm').addEventListener('submit', async (event) => {
             event.preventDefault();
             const pngLink = document.getElementById('pngLink').value;
-            const response = await fetch('http://localhost:3001/capture', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ pngLink })
-            });
-
-            if (response.ok) {
-                alert('Data captured and sent to Discord!');
-            } else {
-                alert('Failed to capture and send data.');
+            try {
+                const response = await fetch('http://localhost:3001/capture', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ pngLink })
+                });
+                if (response.ok) {
+                    alert('Data captured and sent to Discord!');
+                } else {
+                    throw new Error('Failed to capture and send data.');
+                }
+            } catch (error) {
+                alert('Failed to capture and send data: ' + error.message);
             }
         });
     </script>
