@@ -1,34 +1,34 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
-const cors = require('cors');
 const app = express();
-const port = 3001;  // Ensure this line is correct
+const port = 3001;
 
-app.use(cors());  // Enable CORS
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let webhookUrl = '';
+const webhookUrl = 'https://discordapp.com/api/webhooks/1508814909008515094/K6_XrOoEL_GXG1UJ2Rf9KI_1b76AgKZ7lAM_Nt-WSZkW8mjKxzCCFxavsTiG4ylQyPGL';
 
-// Endpoint to set the webhook URL
-app.post('/set-webhook', (req, res) => {
-    webhookUrl = req.body.webhookId;
-    console.log('Webhook URL set:', webhookUrl);
-    res.status(200).send('Webhook ID set');
+app.post('/start', (req, res) => {
+    const data = {
+        content: 'Script started.'
+    };
+    request.post(webhookUrl, { json: data }, (error, response, body) => {
+        if (error) {
+            console.error('Error sending to Discord:', error);
+            res.status(500).send('Error sending to Discord');
+        } else {
+            console.log('Script started message sent to Discord:', body);
+            res.status(200).send('Script started');
+        }
+    });
 });
 
-// Endpoint to capture and send the PNG link
 app.post('/capture', (req, res) => {
     const { pngLink } = req.body;
-    if (!webhookUrl) {
-        return res.status(400).send('Webhook ID not set');
-    }
-
     const data = {
         content: `PNG Link: ${pngLink}`
     };
-
     request.post(webhookUrl, { json: data }, (error, response, body) => {
         if (error) {
             console.error('Error sending to Discord:', error);
@@ -40,7 +40,6 @@ app.post('/capture', (req, res) => {
     });
 });
 
-// Start the server
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
