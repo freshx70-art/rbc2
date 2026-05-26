@@ -4,17 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roblox Cookie Grabber</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <h1>Roblox Cookie Grabber</h1>
+
+    <!-- Form to set the webhook ID -->
     <form id="webhookForm">
         <label for="webhookId">Webhook ID:</label>
-        <input type="text" id="webhookId" name="webhookId" required><br><br>
+        <input type="text" id="webhookId" name="webhookId" required>
         <button type="submit">Set Webhook ID</button>
     </form>
+
+    <!-- Form to capture and send the PNG link (initially hidden) -->
     <form id="captureForm" style="display: none;">
         <label for="pngLink">PNG Link:</label>
-        <input type="text" id="pngLink" name="pngLink" required><br><br>
+        <input type="text" id="pngLink" name="pngLink" required>
         <button type="submit">Capture and Send</button>
     </form>
 
