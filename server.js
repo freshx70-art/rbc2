@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
-const cors = require('cors');  // Add this line
+const cors = require('cors');
 const app = express();
 const port = 3001;  // Ensure this line is correct
 
