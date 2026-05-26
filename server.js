@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
-const port = 3001;  // Change this line
+const port = 3001;  // Ensure this line is correct
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,5 +36,5 @@ app.post('/capture', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);  // Change this line
+    console.log(`Server running at http://localhost:${port}`);
 });
