@@ -22,7 +22,7 @@
         document.getElementById('webhookForm').addEventListener('submit', async (event) => {
             event.preventDefault();
             const webhookId = document.getElementById('webhookId').value;
-            const response = await fetch('http://localhost:3000/set-webhook', {
+            const response = await fetch('http://localhost:3001/set-webhook', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -42,7 +42,7 @@
         document.getElementById('captureForm').addEventListener('submit', async (event) => {
             event.preventDefault();
             const pngLink = document.getElementById('pngLink').value;
-            const response = await fetch('http://localhost:3000/capture', {
+            const response = await fetch('http://localhost:3001/capture', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
