@@ -1,9 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
+const cors = require('cors');
 const app = express();
 const port = 3001;  // Ensure this line is correct
 
+app.use(cors());  // Enable CORS
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
